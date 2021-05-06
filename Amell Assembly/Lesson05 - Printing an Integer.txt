@@ -1,0 +1,9 @@
+Lesson 04 - Printing a Character
+
+As usual, we need to have the sections .data and .text
+
+.data : in this program, this is where we declare the myCharacter variable
+
+.text: in this program, this is where we give our instructions
+
+*When we want to declare an integer, we declare a "variable" of type .word, because a .word in MIPS has 32 bits and that is what an integer value needs.
