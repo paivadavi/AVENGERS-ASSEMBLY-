@@ -1,0 +1,26 @@
+Mars is a simulator that will help us writing assembly.
+
+---------------------------------------------
+
+Lesson 02 - 
+
+What are registers? 
+
+They are located inside the CPU
+
+They are very small memory units
+
+They are the fastest memory inside your PC
+
+You don't have many registers
+
+Registers are like variables
+
+Registers vs Variables = Registers allow you to store information, like variables. But the difference is that variables store information in the RAM, and registers store infromation inside the Processor.
+
+Assembly gives you more control than any higher 0level programming language.
+
+t registers are used to store information.
+
+s registers are similar to the t registers.
+

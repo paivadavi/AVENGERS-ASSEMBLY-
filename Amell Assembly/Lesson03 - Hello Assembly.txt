@@ -1,0 +1,11 @@
+LESSON 03 - HELLO ASSEMBLY
+
+*Every MIPS program has two sections: The data section and the text section
+
+.data = has all the data in your program. In Java and C++, those would be the variables
+
+.text = has all the instructions that your program needs.
+
+syscall tells the computer to execute your previous instructions.
+
+ 
