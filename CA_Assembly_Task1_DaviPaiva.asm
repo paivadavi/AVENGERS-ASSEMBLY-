@@ -12,8 +12,8 @@
     productBX: .asciiz "\nThe result of b * x: "
     productCX: .asciiz "\nThe result of c * x: "
     
-    productAX3: .asciiz "\nThe result of ax^3: "
-    productBX2: .asciiz "\nThe result of bx^2: "
+    productAXCubed: .asciiz "\nThe result of ax^3: "
+    productBXSquared: .asciiz "\nThe result of bx^2: "
     
     	
 .text
@@ -94,31 +94,16 @@
 #-----------------------COMPUTING AX^3--------------------------------------
     
     mult $t0,$t1 #The product will be in the lo register
-    mflo $s0 #Here we have ax
-    
-    #Displays the computation to the screen
-    li $v0,4
-    la $a0, productAX
+    mflo $s0 #Here we have ax 
     syscall
     
-    li $v0, 1 #this is the code to display the number on screen
-    add $a0, $zero, $s0
-    syscall
-    
-    move $s0, $t7
-    mult $s0, $t7
+    mult $s0,$s0
     mflo $s0
     syscall
     
-    #Displays the computation to the screen
-    li $v0,4
-    la $a0, productAX3
+    mult $s0, $s0
+    mflo $s0
     syscall
-    
-    li $v0, 1 #this is the code to display the number on screen
-    add $a0, $zero, $s0
-    syscall
-      
     
 #-----------------------COMPUTING BX^2--------------------------------------
     
@@ -127,7 +112,7 @@
     
     #Displays the computation to the screen
     li $v0,4
-    la $a0, productBX2
+    la $a0, productBX
     syscall
     li $v0, 1 #this is the code to display the number on screen
     add $a0, $zero, $s0
