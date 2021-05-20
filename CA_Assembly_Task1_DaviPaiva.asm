@@ -37,7 +37,7 @@
     
     #Store the result in $t0
     move $t0, $v0 #moves to t0 the value stored in v0
-    
+    syscall
 #------------------GETTING A FROM THE USER----------------------------------
     
     li $v0, 4 
@@ -50,7 +50,7 @@
     
     #Store the result in $t0
     move $t1, $v0 #moves to t1 the value stored in v0
-    
+    syscall
 #--------------------GETTING B FROM THE USER--------------------------------
     
     li $v0, 4 
@@ -63,7 +63,7 @@
     
     #Store the result in $t0
     move $t2, $v0 #moves to t2 the value stored in v0
-    
+    syscall
     
 #-----------------------GETTING C FROM THE USER-----------------------------
     
@@ -76,8 +76,8 @@
     syscall#Pauses execution and allows us to enter a number
     
     #Store the result in $t0
-    move $t3, $v0 #moves to t0 the value stored in v0
-    
+    move $t3, $v0 #moves to t3 the value stored in v0
+    syscall
 #------------------------GETTING D FROM THE USER----------------------------
     
     li $v0, 4 
@@ -89,34 +89,43 @@
     syscall#Pauses execution and allows us to enter a number
     
     #Store the result in $t0
-    move $t4, $v0 #moves to t0 the value stored in v0
-    
+    move $t4, $v0 #moves to t4 the value stored in v0
+    syscall
 #-----------------------COMPUTING AX^3--------------------------------------
     
     mult $t0,$t1 #The product will be in the lo register
     mflo $s0 #Here we have ax 
     syscall
     
-    mult $s0,$s0
+    move $t0, $s0 
+    mult $t0,$t0
     mflo $s0
     syscall
     
-    mult $s0, $s0
+    move $t0, $s0 
+    mult $t0,$t0
     mflo $s0
     syscall
     
 #-----------------------COMPUTING BX^2--------------------------------------
     
     mult $t0,$t2 #The product will be in the lo register
-    mflo $s0 #Here we have ax
+    mflo $s0 #Here we have bx
     
     #Displays the computation to the screen
     li $v0,4
     la $a0, productBX
+    syscall  
+    
+    move $t1, $s0 
+    mult $t1,$t1
+    mflo $s0
     syscall
-    li $v0, 1 #this is the code to display the number on screen
-    add $a0, $zero, $s0
-    syscall    
+    
+    move $t1, $s0 
+    mult $t1,$t1
+    mflo $s0
+    syscall
     
 #-----------------------COMPUTING CX--------------------------------------
     
@@ -127,8 +136,15 @@
     li $v0,4
     la $a0, productCX
     syscall
-    li $v0, 1 #this is the code to display the number on screen
-    add $a0, $zero, $s0
+    
+    move $t2, $s0 
+    mult $t2,$t2
+    mflo $s0
+    syscall
+    
+    move $t2, $s0 
+    mult $t2,$t2
+    mflo $s0
     syscall	        
     
     
