@@ -12,6 +12,8 @@
     productBX: .asciiz "\nThe result of b * x: "
     productCX: .asciiz "\nThe result of c * x: "
     
+    productXSquared: .asciiz "\n The result of x * x: "
+    productXCubed: .asciiz "\n The result of x * x * x: "
     productAXCubed: .asciiz "\nThe result of ax^3: "
     productBXSquared: .asciiz "\nThe result of bx^2: "
     
@@ -32,7 +34,7 @@
     syscall
     
     #getting the users input
-    li $v0, 5#This tells the system we want to get an integer from the keboard
+    li $v0, 5#This tells the system we want to get an integer from the keyboard
     syscall#Pauses execution and allows us to enter a number
     
     #Store the result in $t0
@@ -92,60 +94,65 @@
     move $t4, $v0 #moves to t4 the value stored in v0
     syscall
 #-----------------------COMPUTING AX^3--------------------------------------
-    
-    mult $t0,$t1 #The product will be in the lo register
-    mflo $s0 #Here we have ax 
+    mul $t5, $t0, $t0#computes x * x and saves to $t5
     syscall
     
-    move $t0, $s0 
-    mult $t0,$t0
-    mflo $s0
+    li $v0, 4
+    la $a0, productXSquared
     syscall
     
-    move $t0, $s0 
-    mult $t0,$t0
-    mflo $s0
+    
+    li $v0, 1
+    add $a0, $zero, $t5 #code to print the computation
     syscall
+    
+    mul $t5, $t5, $t0 #computes x cubed
+    syscall
+    
+    li $v0, 4
+    la $a0, productXCubed
+    syscall
+    
+    li $v0, 1
+    add $a0, $zero, $t5 #code to print the computation
+    syscall
+   
+    mul $t5, $t5, $t1 #computes ax3
+    syscall 
+    
+    
     
 #-----------------------COMPUTING BX^2--------------------------------------
-    
-    mult $t0,$t2 #The product will be in the lo register
-    mflo $s0 #Here we have bx
-    
-    #Displays the computation to the screen
-    li $v0,4
-    la $a0, productBX
-    syscall  
-    
-    move $t1, $s0 
-    mult $t1,$t1
-    mflo $s0
+    mul $t6, $t0, $t0 #computes x * x and saves to $t6
     syscall
     
-    move $t1, $s0 
-    mult $t1,$t1
-    mflo $s0
+    li $v0, 4
+    la $a0, productXSquared
     syscall
+    
+    
+    li $v0, 1
+    add $a0, $zero, $t6 #code to print the computation
+    syscall
+    
+    mul $t6, $t2, $t6
+    syscall #This generates bx^2
+    
+    
     
 #-----------------------COMPUTING CX--------------------------------------
-    
-    mult $t0,$t3 #The product will be in the lo register
-    mflo $s0 #Here we have ax
-    
-    #Displays the computation to the screen
-    li $v0,4
-    la $a0, productCX
+    	        
+    mul $t3,$t0#this generates  cx
     syscall
     
-    move $t2, $s0 
-    mult $t2,$t2
-    mflo $s0
-    syscall
     
-    move $t2, $s0 
-    mult $t2,$t2
-    mflo $s0
-    syscall	        
+    
+#----------------------ADDING EVERYTHING----------------------------
+
+    add $t4, $t4, $t3 #d + cx
+    add	$t4, $t4, $t6 #d + cx + bx2
+    add $t4, $t4, $t5 #d + cx + bx2 + ax3
+    syscall
     
     
     
