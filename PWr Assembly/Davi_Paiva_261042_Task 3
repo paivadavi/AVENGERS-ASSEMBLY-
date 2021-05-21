@@ -1,0 +1,6 @@
+.data
+
+firstPrompt: .asciiz "Enter a numerical value smaller than 100: " 
+
+.text
+
