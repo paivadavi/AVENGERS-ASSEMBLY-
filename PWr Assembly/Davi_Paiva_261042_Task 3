@@ -15,7 +15,7 @@
     li $v0, 5#This tells the system that we are expecting an integer from the keyboard
     syscall
     
-    #Store the result tempararily in $t0
+    #Store the result temporarily in $t0
     move $t0, $v0
     li $v0, 4
     la $a0, showNumber
@@ -28,6 +28,10 @@
     
     li $v0, 10 #syscall code 10 is for exit
     syscall
+    
+#Creating an array of n size
+
+
     
     
     
