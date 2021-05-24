@@ -1,6 +1,37 @@
 .data
 
-firstPrompt: .asciiz "Enter a numerical value smaller than 100: " 
-
+    firstPrompt: .asciiz "\nEnter a numerical value smaller than 100: " 
+    showNumber: .asciiz "\nThe number you entered: "
+    
 .text
+
+#Prompting user for n < 100-------------------------------
+
+#First the prompt message
+    li $v0, 4
+    la $a0, firstPrompt
+    syscall
+    
+    li $v0, 5#This tells the system that we are expecting an integer from the keyboard
+    syscall
+    
+    #Store the result tempararily in $t0
+    move $t0, $v0
+    li $v0, 4
+    la $a0, showNumber
+    syscall
+    
+    move $a0, $t0
+    #Instructions to print an integer or a word
+    li $v0, 1
+    syscall
+    
+    li $v0, 10 #syscall code 10 is for exit
+    syscall
+    
+    
+    
+    
+    
+
 
