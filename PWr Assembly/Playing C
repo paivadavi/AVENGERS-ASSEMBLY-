@@ -1,0 +1,18 @@
+.data
+
+    noteC4: .word 60
+    duration: .word 4000
+    instrument: .word, 1
+    volume: .word, 100
+
+.text
+
+
+lw $a0, note
+lw $a1, duration
+lw $a2, instrument
+lw $a3, volume
+
+li $v0, 33
+syscall
+

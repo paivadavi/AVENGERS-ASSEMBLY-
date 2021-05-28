@@ -1,0 +1,80 @@
+.data
+
+    noteC4: .word 60
+    noteD4: .word 62
+    noteE4: .word 64
+    noteF4: .word 65
+    noteG4: .word 67
+    noteA4: .word 69
+    noteB4: .word 71
+    noteC5: .word 72
+    duration: .word 500
+    instrument: .word, 85
+    volume: .word, 127
+
+.text
+
+
+lw $a0, noteC4
+lw $a1, duration
+lw $a2, instrument
+lw $a3, volume
+
+li $v0, 33
+syscall
+
+lw $a0, noteD4
+lw $a1, duration
+lw $a2, instrument
+lw $a3, volume
+
+li $v0, 33
+syscall
+
+lw $a0, noteE4
+lw $a1, duration
+lw $a2, instrument
+lw $a3, volume
+
+li $v0, 33
+syscall
+
+lw $a0, noteF4
+lw $a1, duration
+lw $a2, instrument
+lw $a3, volume
+
+li $v0, 33
+syscall
+
+lw $a0, noteG4
+lw $a1, duration
+lw $a2, instrument
+lw $a3, volume
+
+li $v0, 33
+syscall
+
+lw $a0, noteA4
+lw $a1, duration
+lw $a2, instrument
+lw $a3, volume
+
+li $v0, 33
+syscall
+
+lw $a0, noteB4
+lw $a1, duration
+lw $a2, instrument
+lw $a3, volume
+
+li $v0, 33
+syscall
+
+lw $a0, noteC5
+lw $a1, duration
+lw $a2, instrument
+lw $a3, volume
+
+li $v0, 33 
+syscall

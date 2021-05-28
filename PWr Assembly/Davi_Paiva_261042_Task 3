@@ -1,12 +1,17 @@
 .data
 
     firstPrompt: .asciiz "\nEnter a numerical value smaller than 100: " 
+    numberPrompt: .asciiz "\nEnter a numerical value: "
     showNumber: .asciiz "\nThe number you entered: "
+    integerByteSize: .word 4
+    stepIndex: .word 0
     
 .text
 
 #Prompting user for n < 100-------------------------------
 
+	
+    addi $t0, $zero,0
 #First the prompt message
     li $v0, 4
     la $a0, firstPrompt
@@ -15,13 +20,13 @@
     li $v0, 5#This tells the system that we are expecting an integer from the keyboard
     syscall
     
-    #Store the result temporarily in $t0
-    move $t0, $v0
+    #Store the result temporarily in $t1
+    move $t1, $v0
     li $v0, 4
     la $a0, showNumber
     syscall
     
-    move $a0, $t0
+    move $a0, $t1
     #Instructions to print an integer or a word
     li $v0, 1
     syscall
@@ -29,7 +34,50 @@
     li $v0, 10 #syscall code 10 is for exit
     syscall
     
-#Creating an array of n size
+#------------------Allocating an array of n size on the heap memory---------------
+
+# Input: $a0 - the number of items in the array
+# $a1 - the size of each item
+# Output: $v0 - Address of the array allocated
+
+     addi $sp, $sp, -4 #this is to put the base pointer on the stack
+     sw $ra, 0($sp) #we store in ra the first index of $sp
+     lw $a1, integerByteSize #since we have an array of integers, 
+     #the size of each element is 4 bytes 
+     mul $a0, $t1, $a1 #this is to allow us to create an array of n length
+     li $v0, 9 #@ to write to the stack 
+     syscall
+
+     lw $ra, 0($sp)
+     addi $sp, $sp, 4 # $sp += 4
+     jr $ra
+     syscall
+#----------------- prompting and Putting the numbers in the array-----------
+     While:
+     	bgeu $t0, 10, exit #if the value in t0 is >= 10, its going to exit
+     	
+     		li $v0, 4 #signalizes to print a message
+        	la $a0, numberPrompt
+        	syscall
+        
+     		li $v0, 5#This tells the system that we are expecting an integer from the keyboard
+       	 	syscall
+        
+        	move $t1,$v0 #t1 has the number just inputed
+     
+     		la $t1, stepIndex#t1 holds address of label
+		
+		add $t1, $t1, $s0#t1 now holds address of label + s0 offset
+		
+		lw $sp, 0($t1)#load word from t1's location
+		addi $t1, $t1, 4#t1 was incremented by 4 bytes now
+		addi $t0, $t0,1 #same thing as $t1 += 1
+     		syscall
+     		j While
+     		syscall
+     exit:
+     
+   li $v0, 10 #syscall code 10 is for exit  
 
 
     
