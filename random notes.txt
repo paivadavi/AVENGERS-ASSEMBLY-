@@ -1,8 +1,0 @@
-Von neumann = memory is shared by programs and data
-
-*writing compilers and drivers is very well paid.
-
-*low-level programming, C and C++
-
-In fact, we don't know how processors work inside
-
